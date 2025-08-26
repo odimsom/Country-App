@@ -1,5 +1,5 @@
-import Country from '../interfaces/country.interface';
-import { CountryResponse } from '../interfaces/res-country.interfaces';
+import type Country from '../interfaces/country.interface';
+import type { CountryResponse } from '../interfaces/res-country.interfaces';
 
 export default class CountryMapper {
   public static CountryResponseToCountry = (
@@ -10,7 +10,7 @@ export default class CountryMapper {
       flag: country.flags.svg,
       flagsSvg: country.flags.png,
       name: country.name.common,
-      capital: country.capital,
+      capital: country.capital.join(','),
       population: country.population,
     };
   };

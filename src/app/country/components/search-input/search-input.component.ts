@@ -1,4 +1,4 @@
-import { Component, input, output, signal } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 
 @Component({
   selector: 'country-search-input',
@@ -8,6 +8,7 @@ import { Component, input, output, signal } from '@angular/core';
 export class CountrySearchInputComponent {
   public _placeHolder = input<string>('Search');
   public _newChangeDetection = output<string>();
+
   public OnSearch = (event: string) => {
     this._newChangeDetection.emit(event);
   };

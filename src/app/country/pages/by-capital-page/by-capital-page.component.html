@@ -1,5 +1,11 @@
 <country-search-input
   _placeHolder="Search By Capital"
-  (_newChangeDetection)="OnSearch($event)"
+  (_newChangeDetection)="_query.set($event)"
 />
-<country-list [_countries]="Countries()" />
+@if (_countryResource.error()) {
+<search-404 [_err]="_countryResource.error()" />
+}@if(_countryResource.hasValue()) {
+<country-list [_countries]="_countryResource.value()!" />
+}@else {
+<country-list [_countries]="[]" />
+}
