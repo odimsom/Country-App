@@ -1,4 +1,4 @@
-<section class="mt-5">
+<section class="mt-5 h-screen overflow-x-scroll scrollbar-hide">
   <div class="table-responsive">
     <table class="table table-md mt-3 w-full">
       <thead>
@@ -13,7 +13,33 @@
         </tr>
       </thead>
       <tbody>
-        <tr></tr>
+        @for (countries of _countries(); track countries.cca2; let index =
+        $index) {
+        <tr>
+          <td>{{ index + 1 }}</td>
+          <td>
+            <img
+              [src]="countries.flag"
+              [alt]="countries.name + ' flag'"
+              width="15"
+              height="15"
+            />
+          </td>
+          <td>
+            <img
+              [src]="countries.flagsSvg"
+              [alt]="countries.name"
+              class="w-20"
+            />
+          </td>
+          <td>{{ countries.name }}</td>
+          <td>{{ countries.capital }}</td>
+          <td>{{ countries.population }}</td>
+          <td>
+            <a href="" class="link-primary cursor-pointer">More information</a>
+          </td>
+        </tr>
+        }
       </tbody>
     </table>
   </div>
