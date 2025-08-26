@@ -29,12 +29,35 @@
         >
       </p>
 
-      <div class="flex items-center w-full mt-6 gap-x-3 shrink-0 sm:w-auto">
+      <div
+        class="flex flex-col-reverse sm:flex-row items-center w-full mt-6 gap-y-3 gap-x-3 shrink-0 sm:w-auto"
+      >
         <button
-          class="w-1/2 px-5 py-2 text-sm tracking-wide transition-colors duration-200 btn rounded-lg shrink-0 sm:w-auto hover:btn-primary dark:hover:btn-primary dark:btn-primary"
+          class="w-full sm:w-auto px-5 py-2 text-sm tracking-wide transition-colors duration-200 btn rounded-lg shrink-0 hover:btn-primary dark:hover:btn-primary dark:btn-primary order-1 sm:order-none"
           routerLink="/"
         >
           Take me home
+        </button>
+
+        <button
+          class="flex items-center justify-center w-full sm:w-auto px-5 py-2 text-base font-semibold text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 dark:hover:bg-gray-800 dark:bg-gray-900 hover:bg-gray-100 dark:text-gray-200 dark:border-gray-700 whitespace-nowrap"
+          type="button"
+          (click)="window.location.reload()"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="none"
+              stroke="currentColor"
+              d="M18.425 18.425L23.5 23.5m-12.5-2C5.201 21.5.5 16.799.5 11S5.201.5 11 .5S21.5 5.201 21.5 11S16.799 21.5 11 21.5Z"
+              stroke-width="1"
+            />
+          </svg>
+          <span class="whitespace-nowrap">Make Another Search</span>
         </button>
       </div>
     </div>
