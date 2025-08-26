@@ -1,0 +1,14 @@
+<section class="flex flex-row gap-2 mt-2">
+  <input
+    type="txt"
+    class="input input-bordered mr-2 w-56"
+    [placeholder]="_placeHolder()"
+    (keyup.enter)="OnSearch(txtChangeDetection.value)"
+    autofocus
+    #txtChangeDetection
+  />
+
+  <button class="btn btn-primary" (click)="OnSearch(txtChangeDetection.value)">
+    Search
+  </button>
+</section>
