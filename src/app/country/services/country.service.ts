@@ -19,6 +19,10 @@ export class CountryService {
     const queryLowerCase = query.toLowerCase();
     return this._http
       .get<CountryResponse[]>(`${API_URL}/capital/${queryLowerCase}`)
-      .pipe(map((res) => CountryMapper.CountriesResponseToCountries(res)));
+      .pipe(
+        map((countries) =>
+          CountryMapper.CountriesResponseToCountries(countries)
+        )
+      );
   };
 }
