@@ -2,13 +2,14 @@ import { Component, inject, ResourceRef } from '@angular/core';
 import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 
-import { map, of, tap } from 'rxjs';
+import { map } from 'rxjs';
 
 import { CountryService } from '../../services/country.service';
 import { Search404Component } from '../../components/Errors/search-404/search-404.component';
 import { LoadingComponent } from '../../components/loading/loading.component';
 import { ShowInformationComponent } from './show-information/show-information.component';
-import type Country from '../../interfaces/country.interface';
+import CountryMapper from '../../mappers/country.mapper';
+import type { MoreInformation } from '../../interfaces/more-information-interface';
 
 @Component({
   selector: 'app-country-page',
@@ -22,18 +23,18 @@ export class CountryPageComponent {
 
   public _countryService: CountryService = inject(CountryService);
 
-  public _countryResource: ResourceRef<Country | undefined> = rxResource({
-    request: () => ({
-      code: this._iso(),
-    }),
-    loader: ({ request }) => {
-      return this._countryService
-        .Search(request.code, 'alpha', 'Not exits Country with this iso code')
-        .pipe(
-          map((countries) => {
-            return countries[0];
-          })
-        );
-    },
-  });
+  public _countryResource: ResourceRef<MoreInformation | undefined> =
+    rxResource({
+      request: () => ({
+        code: this._iso(),
+      }),
+      loader: ({ request }) => {
+        return this._countryService
+          .Search(request.code, 'alpha', 'Not exits Country with this iso code')
+          .pipe(
+            map(CountryMapper.CountriesResponseToMoreInformation),
+            map((currentCountry) => currentCountry[0])
+          );
+      },
+    });
 }

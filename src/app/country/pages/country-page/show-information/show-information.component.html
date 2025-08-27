@@ -1,70 +1,324 @@
-<section class="mx-4 sm:mx-8 md:mx-16 lg:mx-32 xl:mx-48">
-  <h1 class="text-2xl sm:text-3xl">{{ _information().name }}</h1>
-  <h2 class="text-lg sm:text-xl font-thin">
-    Population {{ _information().population | number }}
-  </h2>
-</section>
-
-<section
-  class="stats shadow mx-2 sm:mx-5 flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-4 md:gap-6 lg:gap-8"
->
-  <div class="stat place-items-center flex-1 min-w-[220px]">
-    <div class="stat-title">Population</div>
-    <div class="stat-value">{{ _information().population | number }}</div>
-    <div class="stat-desc">From {{ _information() }}</div>
+<!-- País -->
+<section class="mx-4 sm:mx-8 md:mx-16 lg:mx-32 xl:mx-48 py-6">
+  <!-- Header -->
+  <div class="text-center md:text-left mb-6">
+    <h1 class="text-3xl sm:text-4xl font-bold mb-2 text-info">
+      {{ _information().name }}
+    </h1>
+    <h2 class="text-lg sm:text-xl font-thin">
+      Officially {{ _information().officialName }}
+    </h2>
   </div>
 
-  <div class="stat place-items-center flex-1 min-w-[220px]">
-    <div class="stat-title">Name</div>
-    <div class="stat-value text-secondary">{{ _information().name }}</div>
-    <div class="stat-desc text-secondary">{{ _information().region }}</div>
-  </div>
-
-  <div class="stat place-items-center flex-1 min-w-[220px]">
-    <div class="stat-title">Sub Region</div>
-    <div class="stat-value">{{ _information().subRegion }}</div>
-    <div class="stat-desc">{{ _information().region }}</div>
-  </div>
-
-  <div class="stat place-items-center flex-1 min-w-[220px]">
-    <div class="stat-title">Flag</div>
-    <div class="stat-value">
+  <!-- Flag & Coat of Arms -->
+  <div class="my-8 flex flex-col md:flex-row gap-6 items-center justify-center">
+    <div class="flex-1 flex flex-col items-center">
+      <h3 class="text-lg font-semibold mb-2">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="text-info text-[20px] inline-block mr-2"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M4 22V2" />
+          <path d="M4 6h12l-2 4 2 4H4" />
+        </svg>
+        Flag
+      </h3>
       <img
         [src]="_information().flagsSvg"
         [alt]="_information().name"
-        class="h-12 sm:h-16 md:h-20 lg:h-24 max-w-full object-contain"
+        class="max-h-40 w-auto object-contain shadow-md rounded-lg"
       />
     </div>
-    <div class="stat-desc">{{ _information().subRegion }}</div>
+
+    @if (_information().coatOfArms) {
+    <div class="flex-1 flex flex-col items-center">
+      <h3 class="text-lg font-semibold mb-2">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="text-info text-[20px] inline-block mr-2"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path d="M12 2l6 3v5c0 5-3.5 9.7-6 12-2.5-2.3-6-7-6-12V5l6-3z" />
+        </svg>
+        Coat of Arms
+      </h3>
+      <img
+        [src]="_information().coatOfArms"
+        [alt]="_information().name + ' coat of arms'"
+        class="max-h-40 w-auto object-contain shadow-md rounded-lg"
+      />
+    </div>
+    }
+  </div>
+
+  <!-- Stats -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <!-- Population -->
+    <div class="card bg-base-200 shadow p-4 text-center">
+      <div class="flex items-center justify-center gap-2">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="text-info text-[20px]"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            d="M16 11c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM8 11c1.657 0 3-1.343 3-3S9.657 5 8 5 5 6.343 5 8s1.343 3 3 3zM8 13c-3.33 0-6 1.667-6 4v1h14v-1c0-2.333-2.67-4-6-4zM18 13c-.29 0-.57.02-.85.06C17.72 13.4 18 14.17 18 15v1h4v-1c0-2.333-2.67-4-6-4z"
+          />
+        </svg>
+        <span class="text-sm text-gray-400">Population</span>
+      </div>
+      <div class="text-xl font-bold text-info">
+        {{ _information().population | number }}
+      </div>
+      <div class="text-xs text-gray-500">
+        {{ _information().worldPopulationPct }}% of world
+      </div>
+    </div>
+
+    <!-- Area -->
+    <div class="card bg-base-200 shadow p-4 text-center">
+      <div class="flex items-center justify-center gap-2">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="text-info text-[20px]"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            d="M12 2a10 10 0 100 20 10 10 0 000-20zm5 15.5c-.9-.7-2.5-1.2-4-1.3V19h-2v-2.8c-1.5.1-3.1.6-4 1.3A8 8 0 0120 9.5v8zM6 9.5C6 8.8 6.1 8.1 6.3 7.5c.9.7 2.5 1.2 4 1.3V11h2V8.2c1.5-.1 3.1-.6 4-1.3.2.6.3 1.3.3 2.1 0 4.4-3.6 8-8 8s-8-3.6-8-8z"
+          />
+        </svg>
+        <span class="text-sm text-gray-400">Area</span>
+      </div>
+      <div class="text-xl font-bold text-info">
+        {{ _information().area | number }}
+      </div>
+      <div class="text-xs text-gray-500">km²</div>
+    </div>
+
+    <!-- Region -->
+    <div class="card bg-base-200 shadow p-4 text-center">
+      <div class="flex items-center justify-center gap-2">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="text-info text-[20px]"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1112 6a2.5 2.5 0 010 5.5z"
+          />
+        </svg>
+        <span class="text-sm text-gray-400">Region</span>
+      </div>
+      <div class="text-xl font-bold text-info">{{ _information().region }}</div>
+      <div class="text-xs text-gray-500">{{ _information().subRegion }}</div>
+    </div>
+
+    <!-- Density -->
+    <div class="card bg-base-200 shadow p-4 text-center">
+      <div class="flex items-center justify-center gap-2">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="text-info text-[20px]"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            d="M3 21h18v-2H3v2zm2-4h3v-7H5v7zm5 0h3V7h-3v10zm5 0h3v-4h-3v4z"
+          />
+        </svg>
+        <span class="text-sm text-gray-400">Density</span>
+      </div>
+      <div class="text-xl font-bold text-info">
+        {{ _information().density }}
+      </div>
+      <div class="text-xs text-gray-500">per km²</div>
+    </div>
   </div>
 </section>
 
-<!-- Efecto diff solo en pantallas medianas o mayores -->
+<!-- Cultural & Political Info -->
 <section
-  class="hidden md:flex diff aspect-[16/9] flex-row gap-4 items-center justify-center my-4"
+  class="mx-4 sm:mx-8 md:mx-16 lg:mx-32 xl:mx-48 my-8 grid grid-cols-1 md:grid-cols-2 gap-6"
 >
-  <div class="diff-item-1 flex-1 flex items-center justify-center">
-    <img
-      [alt]="_information().name"
-      [src]="_information().flagsSvg"
-      class="max-h-40 w-auto object-contain"
-    />
+  <div class="card bg-base-200 shadow-xl p-4">
+    <div class="flex items-center gap-2 mb-2">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="text-info text-[20px]"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 17.93V19h-2v.93A8.02 8.02 0 014.07 13H6v-2H4.07A8.02 8.02 0 0111 4.07V6h2V4.07A8.02 8.02 0 0119.93 11H18v2h1.93A8.02 8.02 0 0113 19.93z"
+        />
+      </svg>
+      <h3 class="text-lg font-bold">Languages</h3>
+    </div>
+    <ul class="list-disc list-inside">
+      @for (lang of _information().languages; track lang) {
+      <li>{{ lang }}</li>
+      }
+    </ul>
   </div>
-  <div class="diff-item-2 flex-1 flex items-center justify-center">
-    <img
-      class="blur brightness-75 max-h-40 w-auto object-contain"
-      [alt]="_information().name"
-      [src]="_information().flagsSvg"
-    />
+
+  <div class="card bg-base-200 shadow-xl p-4">
+    <div class="flex items-center gap-2 mb-2">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="text-info text-[20px]"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          d="M12 2C7.03 2 3 3.79 3 6v12c0 2.21 4.03 4 9 4s9-1.79 9-4V6c0-2.21-4.03-4-9-4zm0 2c4.08 0 7 .87 7 2s-2.92 2-7 2-7-.87-7-2 2.92-2 7-2zm0 14c-4.08 0-7-.87-7-2v-1c1.73.9 4.67 1.5 7 1.5s5.27-.6 7-1.5v1c0 1.13-2.92 2-7 2z"
+        />
+      </svg>
+      <h3 class="text-lg font-bold">Currency</h3>
+    </div>
+    <ul class="list-disc list-inside">
+      @for (curr of _information().currency; track curr) {
+      <li>{{ curr }}</li>
+      }
+    </ul>
   </div>
-  <div class="diff-resizer"></div>
+
+  <div class="card bg-base-200 shadow-xl p-4">
+    <div class="flex items-center gap-2 mb-2">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="text-info text-[20px]"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+        <path d="M3 3h18v2H3V3zm0 16h18v2H3v-2zM3 8h2v8H3V8zm16 0h2v8h-2V8z" />
+      </svg>
+      <h3 class="text-lg font-bold">Borders</h3>
+    </div>
+    @if (_information().borders.length) {
+    <p>{{ _information().borders.join(", ") }}</p>
+    } @else {
+    <p>No land borders</p>
+    }
+  </div>
+
+  <div class="card bg-base-200 shadow-xl p-4">
+    <div class="flex items-center gap-2 mb-2">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="text-info text-[20px]"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          d="M12 1a11 11 0 1011 11A11 11 0 0012 1zm1 12.59L8.41 15 9 13.41 11 12.5V6h2v7.59z"
+        />
+      </svg>
+      <h3 class="text-lg font-bold">Timezones</h3>
+    </div>
+    <ul class="list-disc list-inside">
+      @for (tz of _information().timezones; track tz) {
+      <li>{{ tz }}</li>
+      }
+    </ul>
+  </div>
 </section>
 
-<!-- Solo la bandera centrada en pantallas pequeñas -->
-<section class="flex md:hidden justify-center my-4">
-  <img
-    [alt]="_information().name"
-    [src]="_information().flagsSvg"
-    class="max-h-40 w-auto object-contain"
-  />
+<!-- Map Links -->
+<section class="mx-4 sm:mx-8 md:mx-16 lg:mx-32 xl:mx-48 my-8">
+  <div class="card bg-base-200 shadow-xl p-4 text-center">
+    <div class="flex items-center justify-center gap-2 mb-2">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="text-info text-[20px]"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          d="M20.5 3l-5.5 2.5L9 3 3.5 5v14L9 19l6 2.5 5.5-2.5V3zM9 5.5l6 2V18l-6-2V5.5z"
+        />
+      </svg>
+      <h3 class="text-lg font-bold">Maps</h3>
+    </div>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a
+        [href]="_information().maps.googleMaps"
+        target="_blank"
+        class="btn btn-primary"
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          class="inline-block mr-2"
+          aria-hidden="true"
+        >
+          <path
+            d="M12 2C8.14 2 4.9 3.64 3 6.2c-.1.15-.1.34 0 .5C4.9 10.36 8.14 12 12 12s7.1-1.64 9-5.3c.1-.15.1-.34 0-.5C19.1 3.64 15.86 2 12 2zM4.27 17.36C6.16 19.92 9.4 21.56 13.26 21.56s7.1-1.64 9-5.3c.1-.15.1-.34 0-.5C19.1 13.64 15.86 12 12 12S4.9 13.64 3 17.3c-.1.16-.1.35 0 .5.09.19.21.36.27.56z"
+          /></svg
+        >Google Maps</a
+      >
+      <a
+        [href]="_information().maps.openStreetMaps"
+        target="_blank"
+        class="btn btn-secondary"
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          class="inline-block mr-2"
+          aria-hidden="true"
+        >
+          <path
+            d="M20.5 3l-5.5 2.5L9 3 3.5 5v14L9 19l6 2.5 5.5-2.5V3zM9 5.5l6 2V18l-6-2V5.5z"
+          /></svg
+        >OpenStreetMap</a
+      >
+    </div>
+  </div>
 </section>
