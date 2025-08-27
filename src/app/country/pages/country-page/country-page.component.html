@@ -1,2 +1,12 @@
-<p>ISO Page is: {{ iso() }}</p>
-,
+<!--  -->
+@if (_countryResource.error()) {
+<search-404 [_err]="_countryResource.error()" />
+}
+<!--  -->
+@if(_countryResource.isLoading()){
+<loading-component />
+}
+<!--  -->
+@if (_countryResource.hasValue()) {
+<show-information [_information]="_countryResource.value()" />
+}

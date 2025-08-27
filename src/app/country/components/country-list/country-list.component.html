@@ -79,7 +79,8 @@
         </tr>
         }
         <!--  -->
-        @if ((IsEmpty() || _countries().length <= 0) && !IsLoading()) {
+        @if ((IsEmpty() || _countries().length <= 0) && !IsLoading() &&
+        !IsError()) {
         <tr>
           <td colspan="7" class="text-center py-8">
             <div class="text-xl font-semibold text-gray-500">

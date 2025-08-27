@@ -12,6 +12,8 @@ export default class CountryMapper {
       name: country.name.common,
       capital: country.capital.join(','),
       population: country.population,
+      region: country.region,
+      subRegion: country.subregion,
     };
   };
 

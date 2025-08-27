@@ -1,0 +1,70 @@
+<section class="mx-4 sm:mx-8 md:mx-16 lg:mx-32 xl:mx-48">
+  <h1 class="text-2xl sm:text-3xl">{{ _information().name }}</h1>
+  <h2 class="text-lg sm:text-xl font-thin">
+    Population {{ _information().population | number }}
+  </h2>
+</section>
+
+<section
+  class="stats shadow mx-2 sm:mx-5 flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-4 md:gap-6 lg:gap-8"
+>
+  <div class="stat place-items-center flex-1 min-w-[220px]">
+    <div class="stat-title">Population</div>
+    <div class="stat-value">{{ _information().population | number }}</div>
+    <div class="stat-desc">From {{ _information() }}</div>
+  </div>
+
+  <div class="stat place-items-center flex-1 min-w-[220px]">
+    <div class="stat-title">Name</div>
+    <div class="stat-value text-secondary">{{ _information().name }}</div>
+    <div class="stat-desc text-secondary">{{ _information().region }}</div>
+  </div>
+
+  <div class="stat place-items-center flex-1 min-w-[220px]">
+    <div class="stat-title">Sub Region</div>
+    <div class="stat-value">{{ _information().subRegion }}</div>
+    <div class="stat-desc">{{ _information().region }}</div>
+  </div>
+
+  <div class="stat place-items-center flex-1 min-w-[220px]">
+    <div class="stat-title">Flag</div>
+    <div class="stat-value">
+      <img
+        [src]="_information().flagsSvg"
+        [alt]="_information().name"
+        class="h-12 sm:h-16 md:h-20 lg:h-24 max-w-full object-contain"
+      />
+    </div>
+    <div class="stat-desc">{{ _information().subRegion }}</div>
+  </div>
+</section>
+
+<!-- Efecto diff solo en pantallas medianas o mayores -->
+<section
+  class="hidden md:flex diff aspect-[16/9] flex-row gap-4 items-center justify-center my-4"
+>
+  <div class="diff-item-1 flex-1 flex items-center justify-center">
+    <img
+      [alt]="_information().name"
+      [src]="_information().flagsSvg"
+      class="max-h-40 w-auto object-contain"
+    />
+  </div>
+  <div class="diff-item-2 flex-1 flex items-center justify-center">
+    <img
+      class="blur brightness-75 max-h-40 w-auto object-contain"
+      [alt]="_information().name"
+      [src]="_information().flagsSvg"
+    />
+  </div>
+  <div class="diff-resizer"></div>
+</section>
+
+<!-- Solo la bandera centrada en pantallas pequeñas -->
+<section class="flex md:hidden justify-center my-4">
+  <img
+    [alt]="_information().name"
+    [src]="_information().flagsSvg"
+    class="max-h-40 w-auto object-contain"
+  />
+</section>

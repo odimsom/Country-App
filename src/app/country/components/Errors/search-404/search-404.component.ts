@@ -1,5 +1,6 @@
-import { Component, input } from '@angular/core';
-import { Route, RouterLink } from '@angular/router';
+import { Component, inject, input } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'search-404',
@@ -8,5 +9,10 @@ import { Route, RouterLink } from '@angular/router';
 })
 export class Search404Component {
   public window = window;
+  public _location = inject(Location);
   public _err = input.required<string | null | unknown>();
+
+  public GoBack = (): void => {
+    this._location.back();
+  };
 }

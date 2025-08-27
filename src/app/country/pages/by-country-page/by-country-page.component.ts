@@ -9,11 +9,7 @@ import { Search404Component } from '../../components/Errors/search-404/search-40
 
 @Component({
   selector: 'app-by-country',
-  imports: [
-    CountrySearchInputComponent,
-    CountryListComponent,
-    Search404Component,
-  ],
+  imports: [CountrySearchInputComponent, CountryListComponent],
   templateUrl: './by-country-page.component.html',
 })
 export class ByCountryComponent {
@@ -31,7 +27,7 @@ export class ByCountryComponent {
         this._countryService.Search(
           request.query,
           'name',
-          'You must specify the name to search by country (Search error:)'
+          'You must specify the country name in English to search (Search error:)'
         )
       );
     },
