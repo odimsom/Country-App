@@ -10,5 +10,10 @@
         "angular-page": {
           "skipChangeDetectionOnPush": true
         }
-    }
+    },
+    "cSpell.words": [
+      "demonyms",
+      "fifa",
+      "gini"
+    ]
 }

@@ -1,12 +1,12 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, resource, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 
-import { of } from 'rxjs';
+import { firstValueFrom, map, of } from 'rxjs';
 
 import { CountrySearchInputComponent } from '../../components/search-input/search-input.component';
 import { CountryListComponent } from '../../components/country-list/country-list.component';
 import { CountryService } from '../../services/country.service';
-import { Search404Component } from '../../components/Errors/search-404/search-404.component';
+import CountryMapper from '../../mappers/country.mapper';
 
 @Component({
   selector: 'app-by-capital-page',
@@ -18,13 +18,21 @@ export class ByCapitalPageComponent {
 
   public _query = signal<string>('');
 
-  public _countryResource = rxResource({
+  public _countryResource = resource({
     request: () => ({
       query: this._query(),
     }),
-    loader: ({ request }) => {
-      if (!request.query) return of([]);
-      return this._countryService.Search(request.query, 'capital');
+    loader: async ({ request }) => {
+      if (!request.query) return [];
+      return await firstValueFrom(
+        this._countryService
+          .Search(
+            request.query,
+            'name',
+            'You must specify the country name in English to search (Search error:)'
+          )
+          .pipe(map(CountryMapper.CountriesResponseToCountries))
+      );
     },
   });
 

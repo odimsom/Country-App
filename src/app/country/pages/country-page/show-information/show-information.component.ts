@@ -1,6 +1,7 @@
 import { Component, input } from '@angular/core';
-import type Country from '../../../interfaces/country.interface';
 import { DecimalPipe } from '@angular/common';
+
+import type { MoreInformation } from '../../../interfaces/more-information-interface';
 
 @Component({
   selector: 'show-information',
@@ -8,5 +9,5 @@ import { DecimalPipe } from '@angular/common';
   templateUrl: './show-information.component.html',
 })
 export class ShowInformationComponent {
-  public _information = input.required<Country>();
+  public _information = input.required<MoreInformation>();
 }

@@ -19,14 +19,11 @@ export class CountryService {
     query: string,
     by: string,
     errorMessage: string = 'Search error:'
-  ): Observable<Country[]> => {
+  ): Observable<CountryResponse[]> => {
     const queryLowerCase = query.toLowerCase();
     return this._http
       .get<CountryResponse[]>(`${API_URL}/${by}/${queryLowerCase}`)
       .pipe(
-        map((countries) =>
-          CountryMapper.CountriesResponseToCountries(countries)
-        ),
         catchError(() => {
           return throwError(() => new Error(`(${errorMessage} ${query})`));
         })
