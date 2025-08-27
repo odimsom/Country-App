@@ -54,7 +54,37 @@
             >
           </td>
           <td>
-            <a href="" class="link-primary cursor-pointer">More information</a>
+            <a
+              [routerLink]="['/country/by', countries.cca2]"
+              class="link-primary cursor-pointer"
+              >More information</a
+            >
+          </td>
+        </tr>
+        }
+        <!--  -->
+        @if (IsError()) {
+        <tr>
+          <td colspan="7">
+            <search-404 [_err]="IsError()" />
+          </td>
+        </tr>
+        }
+        <!--  -->
+        @if (IsLoading()) {
+        <tr>
+          <td colspan="7">
+            <loading-component />
+          </td>
+        </tr>
+        }
+        <!--  -->
+        @if ((IsEmpty() || _countries().length <= 0) && !IsLoading()) {
+        <tr>
+          <td colspan="7" class="text-center py-8">
+            <div class="text-xl font-semibold text-gray-500">
+              Please try a search.
+            </div>
           </td>
         </tr>
         }

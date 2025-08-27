@@ -2,10 +2,10 @@
   _placeHolder="Search By Capital"
   (_newChangeDetection)="_query.set($event)"
 />
-@if (_countryResource.error()) {
-<search-404 [_err]="_countryResource.error()" />
-}@if(_countryResource.hasValue()) {
-<country-list [_countries]="_countryResource.value()!" />
-}@else {
-<country-list [_countries]="[]" />
-}
+
+<country-list
+  [_countries]="_countryResource.value() ?? []"
+  [IsLoading]="_countryResource.isLoading()"
+  [IsError]="_countryResource.error()"
+  [IsEmpty]="!_countryResource.hasValue()"
+/>

@@ -9,7 +9,4 @@ import { Route, RouterLink } from '@angular/router';
 export class Search404Component {
   public window = window;
   public _err = input.required<string | null | unknown>();
-  focusSearchInput() {
-    throw new Error('Method not implemented.');
-  }
 }
