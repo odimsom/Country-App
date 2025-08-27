@@ -28,7 +28,11 @@ export class ByCountryComponent {
     loader: async ({ request }) => {
       if (!request.query) return [];
       return await firstValueFrom(
-        this._countryService.SearchByCountry(request.query)
+        this._countryService.Search(
+          request.query,
+          'name',
+          'You must specify the name to search by country (Search error:)'
+        )
       );
     },
   });
