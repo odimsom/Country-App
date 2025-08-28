@@ -28,7 +28,8 @@ export class ByCountryComponent {
           .Search(
             request.query,
             'name',
-            'You must specify the country name in English to search (Search error:)'
+            'You must specify the country name in English to search (Search error:)',
+            'Country'
           )
           .pipe(map(CountryMapper.CountriesResponseToCountries))
       );

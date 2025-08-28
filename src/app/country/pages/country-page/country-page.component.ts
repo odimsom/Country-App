@@ -30,7 +30,12 @@ export class CountryPageComponent {
       }),
       loader: ({ request }) => {
         return this._countryService
-          .Search(request.code, 'alpha', 'Not exits Country with this iso code')
+          .Search(
+            request.code,
+            'alpha',
+            'Not exits Country with this iso code',
+            'Iso'
+          )
           .pipe(
             map(CountryMapper.CountriesResponseToMoreInformation),
             map((currentCountry) => currentCountry[0])

@@ -1,5 +1,5 @@
-import { Component, input } from '@angular/core';
-import { DecimalPipe } from '@angular/common';
+import { Component, inject, input } from '@angular/core';
+import { DecimalPipe, Location } from '@angular/common';
 
 import type { MoreInformation } from '../../../interfaces/more-information-interface';
 
@@ -10,4 +10,9 @@ import type { MoreInformation } from '../../../interfaces/more-information-inter
 })
 export class ShowInformationComponent {
   public _information = input.required<MoreInformation>();
+  public _location = inject(Location);
+
+  public GoBack = (): void => {
+    this._location.back();
+  };
 }
