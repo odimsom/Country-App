@@ -1,10 +1,13 @@
-import { Component, effect, inject, resource, signal } from '@angular/core';
-import { CountryListComponent } from '../../components/country-list/country-list.component';
+import { Component, inject, linkedSignal, resource } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { firstValueFrom, map } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 
+import { CountryListComponent } from '../../components/country-list/country-list.component';
 import { CountryService } from '../../services/country.service';
-import Region from '../../types/region.type';
 import CountryMapper from '../../mappers/country.mapper';
+import Region from '../../types/region.type';
+import HelperRegion from './helpers/to-region.helper';
 
 @Component({
   selector: 'app-by-region',
@@ -37,7 +40,15 @@ export class ByRegionComponent {
 
   public _countryService: CountryService = inject(CountryService);
 
-  public _query = signal<string>('');
+  public _currentRoute: ActivatedRoute = inject(ActivatedRoute);
+  public _route: Router = inject(Router);
+  public _queryParams = toSignal(
+    this._currentRoute.params.pipe(map((params) => params['query']))
+  );
+
+  public _query = linkedSignal<Region>(() =>
+    HelperRegion.ValidateQueryParams(this._queryParams())
+  );
 
   public _countryResource = resource({
     request: () => ({
@@ -45,6 +56,13 @@ export class ByRegionComponent {
     }),
     loader: async ({ request }) => {
       if (!request.query) return [];
+
+      this._route.navigate([
+        '/country/by-region',
+        {
+          query: request.query,
+        },
+      ]);
 
       return await firstValueFrom(
         this._countryService

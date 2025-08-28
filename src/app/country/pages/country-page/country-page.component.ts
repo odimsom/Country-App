@@ -1,6 +1,12 @@
-import { Component, inject, ResourceRef } from '@angular/core';
+import {
+  Component,
+  effect,
+  inject,
+  linkedSignal,
+  ResourceRef,
+} from '@angular/core';
 import { rxResource, toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { map } from 'rxjs';
 
@@ -17,11 +23,11 @@ import type { MoreInformation } from '../../interfaces/more-information-interfac
   templateUrl: './country-page.component.html',
 })
 export class CountryPageComponent {
+  public _countryService: CountryService = inject(CountryService);
+  public _currentRoute: ActivatedRoute = inject(ActivatedRoute);
   public _iso = toSignal(
     inject(ActivatedRoute).params.pipe(map((params) => params['iso']))
   );
-
-  public _countryService: CountryService = inject(CountryService);
 
   public _countryResource: ResourceRef<MoreInformation | undefined> =
     rxResource({

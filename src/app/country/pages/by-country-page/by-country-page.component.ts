@@ -1,6 +1,7 @@
 import { Component, inject, resource, signal } from '@angular/core';
-
+import { ActivatedRoute, Router } from '@angular/router';
 import { firstValueFrom, map } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 import { CountryService } from '../../services/country.service';
 import { CountrySearchInputComponent } from '../../components/search-input/search-input.component';
@@ -15,7 +16,13 @@ import CountryMapper from '../../mappers/country.mapper';
 export class ByCountryComponent {
   public _countryService: CountryService = inject(CountryService);
 
-  public _query = signal<string>('');
+  public _currentRoute: ActivatedRoute = inject(ActivatedRoute);
+  public _route: Router = inject(Router);
+
+  public _queryParams = toSignal(
+    this._currentRoute.params.pipe(map((params) => params['query']))
+  );
+  public _query = signal<string>(this._queryParams());
 
   public _countryResource = resource({
     request: () => ({
@@ -23,6 +30,14 @@ export class ByCountryComponent {
     }),
     loader: async ({ request }) => {
       if (!request.query) return [];
+
+      this._route.navigate([
+        '/country/by-country',
+        {
+          query: request.query,
+        },
+      ]);
+
       return await firstValueFrom(
         this._countryService
           .Search(
