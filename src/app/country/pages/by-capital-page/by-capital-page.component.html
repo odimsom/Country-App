@@ -1,6 +1,7 @@
 <country-search-input
   _placeHolder="Search By Capital"
   (_newChangeDetection)="_query.set($event)"
+  [_initialValue]="_query()"
 />
 
 <country-list
