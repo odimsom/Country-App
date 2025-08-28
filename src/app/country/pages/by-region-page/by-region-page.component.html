@@ -1,1 +1,23 @@
-<country-list [_countries]="[]" />
+<h1 class="text-3xl py-4 font-bold">Countries by regions</h1>
+<section class="gap-3 flex flex-row">
+  <!--  -->
+  @for (item of _regionsWithColors; track item) {
+  <button
+    [class]="
+      _query() === item.name
+        ? 'btn ' + item.color + ' sm:btn-xl'
+        : 'btn btn-outline ' + item.color + ' sm:btn-xl'
+    "
+    (click)="_query.set(item.name)"
+  >
+    {{ item.name }}
+  </button>
+  }
+</section>
+
+<country-list
+  [_countries]="_countryResource.value() ?? []"
+  [IsLoading]="_countryResource.isLoading()"
+  [IsError]="_countryResource.error()"
+  [IsEmpty]="!_countryResource.hasValue()"
+/>

@@ -11,7 +11,7 @@ export default class CountryMapper {
       flag: country.flags.svg,
       flagsSvg: country.flags.png,
       name: country.name.common,
-      capital: country.capital.join(','),
+      capital: country.capital ? country.capital.join(',') : 'Do not have',
       population: country.population,
       region: country.region,
       subRegion: country.subregion,
