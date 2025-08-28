@@ -1,12 +1,15 @@
 <h1 class="text-3xl py-4 font-bold">Countries by regions</h1>
-<section class="gap-3 flex flex-row">
+<p class="text-gray-600 mb-4">
+  Select a region below to view the list of countries belonging to it.
+</p>
+<section class="gap-3 flex flex-wrap sm:flex-row flex-col">
   <!--  -->
   @for (item of _regionsWithColors; track item) {
   <button
     [class]="
       _query() === item.name
-        ? 'btn ' + item.color + ' sm:btn-xl'
-        : 'btn btn-outline ' + item.color + ' sm:btn-xl'
+        ? 'btn ' + item.color + ' sm:btn-xl w-full sm:w-auto'
+        : 'btn btn-outline ' + item.color + ' sm:btn-xl w-full sm:w-auto'
     "
     (click)="_query.set(item.name)"
   >

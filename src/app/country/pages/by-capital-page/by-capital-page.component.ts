@@ -11,6 +11,7 @@ import CountryMapper from '../../mappers/country.mapper';
 
 @Component({
   selector: 'app-by-capital-page',
+  standalone: true,
   imports: [CountrySearchInputComponent, CountryListComponent],
   templateUrl: './by-capital-page.component.html',
 })
